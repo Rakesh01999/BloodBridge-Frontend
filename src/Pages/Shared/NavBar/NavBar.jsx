@@ -3,9 +3,10 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { FaShoppingCart } from 'react-icons/fa';
 import { AuthContext } from '../../../providers/AuthProvider';
-import { toast, ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 // import useCart from '../../../hooks/useCart';
 // import useAdmin from '../../../hooks/useAdmin';
+import dropletLogo from '../../../assets/images/white-droplet.png'
 
 const NavBar = () => {
     const { user, logOut } = useContext(AuthContext);
@@ -23,8 +24,8 @@ const NavBar = () => {
 
     const navOptions = <>
         <li className='hover:text-yellow-300 hover:font-bold hover:text-[15px]'><Link to="/">Home</Link></li>
-        <li className='hover:text-yellow-300 hover:font-bold hover:text-[15px]'><Link to="/mangoes">Our Mangoes</Link></li>
-        <li className='hover:text-yellow-300 hover:font-bold hover:text-[15px]'><Link to="/order/Mango">Order Mango</Link></li>
+        <li className='hover:text-yellow-300 hover:font-bold hover:text-[15px]'><Link to="/dashboard">Dashboard</Link></li>
+        {/* <li className='hover:text-yellow-300 hover:font-bold hover:text-[15px]'><Link to="/order/Mango">Order Mango</Link></li> */}
 
 
     </>
@@ -43,7 +44,10 @@ const NavBar = () => {
                         </ul>
                     </div>
                     {/* <a className="btn btn-ghost text-xl">BloodBridge</a> */}
-                    <a className="text-xl">BloodBridge</a>
+                    <a className="text-xl flex gap-1">
+                        <img src={dropletLogo} className='w-2 md:w-6' alt="dropletlogo" />
+                        <span className='text-sm md:text-xl'>Blood Bridge</span>
+                    </a>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
@@ -75,12 +79,12 @@ const NavBar = () => {
                         user ? (
                             <>
                                 <div className="flex flex-col md:flex-row items-center gap-2">
-                                    <p className="text-sm md:text-base">{user.displayName}</p>
-                                    <div className="tooltip" data-tip={user.displayName}>
-                                        <img className="w-10 h-10 md:w-14 md:h-14 border-2 border-blue-600 rounded-full" src={user.photoURL} alt="User Profile" />
+                                    <p className="text-sm md:text-base text-white">{user.displayName}</p>
+                                    <div className="tooltip tooltip-bottom" data-tip={user.displayName}>
+                                        <img className="w-10 h-10 md:w-14 md:h-14 border-2 border-red-600 rounded-full" src={user.photoURL} alt="User Profile" />
                                     </div>
                                 </div>
-                                <button onClick={handleLogOut} className="btn btn-info md:btn-lg btn-sm md:w-28">
+                                <button onClick={handleLogOut} className="btn btn-info bg-orange-600 md:h-14 btn-sm md:w-28">
                                     Log out
                                     {/* <FaArrowRight></FaArrowRight> */}
                                 </button>

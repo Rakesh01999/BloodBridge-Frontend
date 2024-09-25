@@ -45,8 +45,8 @@ const Login = () => {
         googleSignIn()
             .then(result => {
                 const userInfo = {
-                    email: result.user?.email,
-                    name: result.user?.displayName
+                    name: result.user?.displayName,
+                    email: result.user?.email
                 }
                 axiosPublic.post('/users', userInfo)
                     .then((res) => {
