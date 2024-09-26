@@ -6,6 +6,10 @@ import Home from "../Pages/Home/Home";
 import Register from "../components/register/Register"
 import Login from "../components/login/Login";
 import Dashboard from "../Layout/Dashboard";
+import Donar from "../Pages/Dashboard/Donationblood/Donar";
+import Donationhistory from "../Pages/Dashboard/Donationblood/Donationhistory";
+import Requestblood from "../Pages/Dashboard/Donationblood/Requestblood";
+import Requesthistory from "../Pages/Dashboard/Donationblood/Requesthistory";
 
 export const router = createBrowserRouter([
     {
@@ -36,6 +40,22 @@ export const router = createBrowserRouter([
                 path: 'userHome',
                 // element: <UserHome></UserHome>
             },
+            {
+                path:'donar',
+                element:<Donar></Donar>
+            },
+            {
+                path:'history',
+                element:<Donationhistory></Donationhistory> 
+            },
+            {
+                path:'requestblood',
+                element:<Requestblood></Requestblood>
+            },
+            {
+                path:'requesthistory',
+                element:<Requesthistory></Requesthistory>   
+            }
         ]
     }
 ]);
