@@ -6,7 +6,7 @@ import NavBar from '../Pages/Shared/NavBar/NavBar';
 
 const Dashboard = () => {
 
-    const isAdmin = true;
+    // const isAdmin = true;
     return (
 
         <div>
