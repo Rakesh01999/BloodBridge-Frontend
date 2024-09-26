@@ -6,11 +6,11 @@ import Home from "../Pages/Home/Home";
 import Register from "../components/register/Register"
 import Login from "../components/login/Login";
 import Dashboard from "../Layout/Dashboard";
-import Donar from "../Pages/Dashboard/Donationblood/Donar";
-import Donationhistory from "../Pages/Dashboard/Donationblood/Donationhistory";
-import Requestblood from "../Pages/Dashboard/Donationblood/Requestblood";
-import Requesthistory from "../Pages/Dashboard/Donationblood/Requesthistory";
 import UserHome from "../Pages/Dashboard/UserHome/UserHome";
+import Donar from "../Pages/Dashboard/Donation&RequestBlood/Donar";
+import Requestblood from "../Pages/Dashboard/Donation&RequestBlood/Requestblood";
+import Requesthistory from "../Pages/Dashboard/Donation&RequestBlood/Requesthistory";
+import Donationhistory from "../Pages/Dashboard/Donation&RequestBlood/Donationhistory";
 
 export const router = createBrowserRouter([
     {
@@ -47,7 +47,7 @@ export const router = createBrowserRouter([
                 element:<Donar></Donar>
             },
             {
-                path:'history',
+                path:'donationHistory',
                 element:<Donationhistory></Donationhistory> 
             },
             {
