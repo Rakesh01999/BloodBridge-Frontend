@@ -10,6 +10,7 @@ import Donar from "../Pages/Dashboard/Donationblood/Donar";
 import Donationhistory from "../Pages/Dashboard/Donationblood/Donationhistory";
 import Requestblood from "../Pages/Dashboard/Donationblood/Requestblood";
 import Requesthistory from "../Pages/Dashboard/Donationblood/Requesthistory";
+import UserHome from "../Pages/Dashboard/UserHome/UserHome";
 
 export const router = createBrowserRouter([
     {
@@ -38,7 +39,8 @@ export const router = createBrowserRouter([
             // normal user routes
             {
                 path: 'userHome',
-                // element: <UserHome></UserHome>
+                // path: '/dashboard/userHome',
+                element: <UserHome></UserHome>
             },
             {
                 path:'donar',
