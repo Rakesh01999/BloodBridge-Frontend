@@ -24,9 +24,10 @@ const Donar = () => {
          let bloodgroup = form.blood.value
          let status = "pending"
          let number_of_donation = 1
+         let quantity = form.quantity.value
          
          const Information = {
-            email,name,Phone_number,Disease,date,bloodgroup,status,number_of_donation
+            email,name,Phone_number,Disease,date,bloodgroup,status,number_of_donation,quantity
          }
 
          axiosSecure.post('/information',Information)
@@ -128,6 +129,20 @@ const Donar = () => {
                 <span className="label-text text-black font-bold">Date</span>
               </label>
               <DatePicker name="date" className="input lg:input-lg input-bordered lg:w-[500px] md:w-[250px] w-[150px]" selected={startDate} onChange={(date) => setStartDate(date)} />
+            </div>
+          </div>
+          <div className="lg:flex md:flex lg:gap-4 gap-2 md:gap-4">
+          <div className="">
+              <label className="label">
+                <span className="label-text text-black font-bold">Phone number</span>
+              </label>
+              <input
+                type="number"
+                placeholder="qunatity"
+                className="input lg:input-lg input-bordered lg:w-[500px] md:w-[250px] w-[150px]"
+                name="quantity"
+                required
+              />
             </div>
           </div>
           <div className="flex justify-center">
