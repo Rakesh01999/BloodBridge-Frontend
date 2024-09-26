@@ -76,7 +76,7 @@ const Requestblood = () => {
                                   placeholder="nafis@gmail.com"
                                   className="input input-bordered"
                                   defaultValue={user?.displayName}
-                                  name="email"
+                                  name="name"
                                   required
                                 />
                               </div>
@@ -93,6 +93,66 @@ const Requestblood = () => {
                                   defaultValue={user?.email}
                                   name="email"
                                   required
+                                />
+                              </div>
+                            </div>
+                            <div className="flex space-x-3 ml-[-20px]">
+                              <div className="">
+                                <label className="label">
+                                  <span className="label-text text-black ">
+                                    Group
+                                  </span>
+                                </label>
+                                <input
+                                  type="email"
+                                  placeholder="A+"
+                                  className="input input-bordered"
+                                  defaultValue={item.bloodGroup}
+                                  name="blood"
+                                  required
+                                />
+                              </div>
+                              <div className="">
+                                <label className="label">
+                                  <span className="label-text text-black ">
+                                    Qunatity
+                                  </span>
+                                </label>
+                                <input
+                                  type="number"
+                                  placeholder="80ml"
+                                  className="input input-bordered"
+                                  name="quantity"
+                                  required
+                                />
+                              </div>
+                            </div>
+                            <div className="flex space-x-3 ml-[-20px]">
+                              <div className="">
+                                <label className="label">
+                                  <span className="label-text text-black ">
+                                    Phone Number
+                                  </span>
+                                </label>
+                                <input
+                                  type="number"
+                                  placeholder="+880 019xxxx"
+                                  className="input input-bordered"
+                                  name="phone_number"
+                                  required
+                                />
+                              </div>
+                              <div className="">
+                                <label className="label">
+                                  <span className="label-text text-black font-bold">
+                                    Date
+                                  </span>
+                                </label>
+                                <DatePicker
+                                  name="date"
+                                  className="input input-bordered "
+                                  selected={startDate}
+                                  onChange={(date) => setStartDate(date)}
                                 />
                               </div>
                             </div>
