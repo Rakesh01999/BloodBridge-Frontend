@@ -32,12 +32,14 @@ const Donar = () => {
 
          axiosSecure.post('/information',Information)
          .then(res=>{
-          Swal.fire({
-            title: "Accepted!",
-            text: "Your file has been Accepted.",
-            icon: "success"
-          });
-
+             axiosSecure.patch('/bloodGroups',Information)
+             .then(()=>{
+              Swal.fire({
+                title: "Accepted!",
+                text: "Your file has been Accepted.",
+                icon: "success"
+              });
+             })
          })
          .catch(error=>{
             console.log(error.message);
