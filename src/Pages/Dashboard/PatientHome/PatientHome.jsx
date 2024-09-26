@@ -1,14 +1,14 @@
 import React from 'react';
 
-const DonorHome = () => {
+const PatientHome = () => {
     return (
         <div>
             <div>
                 <h3 className='text-center font-bold text-3xl'> This Is Your Dashboard</h3>
-                <h3 className='text-center font-bold text-3xl'> Welcome Donor</h3>
+                <h3 className='text-center font-bold text-3xl'> Welcome Patient</h3>
             </div>
         </div>
     );
 };
 
-export default DonorHome;
+export default PatientHome;
