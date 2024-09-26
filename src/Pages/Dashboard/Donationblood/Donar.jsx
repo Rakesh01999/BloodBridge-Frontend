@@ -1,17 +1,40 @@
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import Swal from "sweetalert2";
+import { AuthContext } from "../../../providers/AuthProvider";
 
 const Donar = () => {
 
-    const [startDate, setStartDate] = useState(new Date());
+     const {user} = useContext(AuthContext)
+     const [startDate, setStartDate] = useState(new Date());
+
+     const submitform = e =>{       
+         e.preventDefault();
+         const form = e.target
+         let email = form.email.value
+         let name = form.name.value 
+         let Phone_number = form.phone_number.value
+         let Disease = form.disease.value 
+         let date = form.date.value 
+         let bloodgroup = form.blood.value
+         let status = "pending"
+         let number_of_donation = 1
+         
+         const Information = {
+            email,name,Phone_number,Disease,date,bloodgroup,status,number_of_donation
+         }
+
+         console.log(Information);
+         
+
+     }
     return (
         <div className="hero min-h-screen bg-base-200  bg-[url('https://i.postimg.cc/dQhJF34k/web-development1.png')]">
        
-        <form  className="card-body">
+        <form onSubmit={submitform} className="card-body">
           {/* 1st input */}
           <h2 className="text-2xl text-white text-center">Donar information</h2>
           <div className="lg:flex md:flex lg:gap-4 gap-2 md:gap-4 justify-center flex">
@@ -23,7 +46,7 @@ const Donar = () => {
                 type="text"
                 placeholder="Title"
                 className="input lg:input-lg input-bordered lg:w-[500px] md:w-[250px] w-[150px]"
-                defaultValue={"name"}
+                defaultValue={user?.displayName}
                 name="name"
                 required
               />
@@ -36,7 +59,7 @@ const Donar = () => {
                 type="email"
                 placeholder="nafis@gmail.com"
                 className="input lg:input-lg input-bordered lg:w-[500px] md:w-[250px] w-[150px]"
-                defaultValue={"email"}
+                defaultValue={user?.email}
                 name="email"
                 required
               />
@@ -98,7 +121,7 @@ const Donar = () => {
             <input
               type="submit"
               className="lg:mt-4 md:mt-4 mt-2 btn btn-primary w-24 lg:w-[200px] "
-              value="Update"
+              value="Submit"
             />
           </div>
         </form>
