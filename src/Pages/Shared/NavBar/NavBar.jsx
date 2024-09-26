@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 // import Menu from '../../Menu/Menu/Menu';
 import { Link } from 'react-router-dom';
 import { FaShoppingCart } from 'react-icons/fa';
@@ -7,6 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 // import useCart from '../../../hooks/useCart';
 // import useAdmin from '../../../hooks/useAdmin';
 import dropletLogo from '../../../assets/images/white-droplet.png'
+import { useQuery } from '@tanstack/react-query';
 
 const NavBar = () => {
     const { user, logOut } = useContext(AuthContext);
@@ -22,10 +23,43 @@ const NavBar = () => {
             .catch(error => console.log(error))
     }
 
+
+    const [isAdmin, setIsAdmin] = useState(false);
+
+    // Fetch all users from the database
+    const { data: users = [], refetch: refetchUsers } = useQuery({
+        queryKey: ['users'],
+        queryFn: async () => {
+            const res = await axiosPublic.get('/users'); // Fetch all users
+            return res.data;
+        }
+    });
+
+    useEffect(() => {
+        if (users.length > 0 && user) {
+            // Find the logged-in user's data in the users array
+            const foundUser = users.find(u => u.email === user.email);
+
+            // Check if the user's role is "admin"
+            if (foundUser?.role === 'admin') {
+                setIsAdmin(true);
+            } else {
+                setIsAdmin(false);
+            }
+        }
+    }, [users, user]);
+
+    console.log("Is Admin:", isAdmin);
+
     const navOptions = <>
         <li className='hover:text-yellow-300 hover:font-bold hover:text-[15px]'><Link to="/">Home</Link></li>
-        <li className='hover:text-yellow-300 hover:font-bold hover:text-[15px]'><Link to="/dashboard/userHome">Dashboard</Link></li>
-        {/* <li className='hover:text-yellow-300 hover:font-bold hover:text-[15px]'><Link to="/order/Mango">Order Mango</Link></li> */}
+        {/* <li className='hover:text-yellow-300 hover:font-bold hover:text-[15px]'><Link to="/dashboard/userHome">Dashboard</Link></li> */}
+        {
+            user && isAdmin && <li><Link className='hover:text-red-300 hover:font-bold hover:text-[15px]' to="/dashboard/adminHome">Dashboard</Link></li>
+        }
+        {
+            user && !isAdmin && <li><Link className='hover:text-red-300 hover:font-bold hover:text-[15px]' to="/dashboard/userHome">Dashboard</Link></li>
+        }
 
 
     </>
