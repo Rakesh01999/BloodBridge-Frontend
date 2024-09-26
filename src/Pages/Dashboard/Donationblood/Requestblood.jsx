@@ -9,6 +9,7 @@ const Requestblood = () => {
   const axiosSecure = useAxiosPublic();
   const { user } = useContext(AuthContext);
   const [startDate, setStartDate] = useState(new Date());
+  const [id,setId] = useState(null)
   const {
     data: blood = [],
     isLoading,
@@ -22,6 +23,38 @@ const Requestblood = () => {
   });
   if (isLoading) {
     return <div>Loading.....</div>;
+  }
+  
+  
+  const handleSubmit = (e)=>{
+    e.preventDefault();
+    const form = e.target;
+    let email = form.email.value;
+    let name = form.name.value;
+    let Phone_number = form.phone_number.value;
+    let date = form.date.value;
+    let bloodgroup = form.blood.value;
+    let status = "Acceptor_pending";
+    let Acc_quantity = form.quantity.value;
+    document.getElementById(id).close()
+
+    let amount = blood?.filter((item)=> item.bloodGroup === bloodgroup)
+
+    
+    if(amount[0].bloodQuantity < Acc_quantity){
+        Swal.fire({
+            title: "Opps!",
+            text: `I have not ${Acc_quantity} ml blood`,
+            icon: "error",
+          });
+        return
+    }
+
+    const information = {
+         email,name,Phone_number,date,bloodgroup,status,Acc_quantity
+    }
+    
+    
   }
 
   return (
@@ -48,7 +81,10 @@ const Requestblood = () => {
                     <button
                       className="btn btn-primary"
                       onClick={() =>
+                      {   
                         document.getElementById(item._id).showModal()
+                        setId(item._id)
+                      }
                       }
                     >
                       Request
@@ -59,11 +95,8 @@ const Requestblood = () => {
                         className="modal modal-middle sm:modal-middle"
                       >
                         <div className="modal-box">
-                          <h3 className="font-bold text-lg">Submission box</h3>
-                          <p className="py-4">
-                            Press ESC key or click the button below to close
-                          </p>
-                          <form className="card-body">
+                          <h3 className="font-bold text-lg text-center">Acceptor Information</h3>
+                          <form onSubmit={handleSubmit} className="card-body">
                             <div className="flex space-x-3 ml-[-20px]">
                               <div className="">
                                 <label className="label">
@@ -72,8 +105,8 @@ const Requestblood = () => {
                                   </span>
                                 </label>
                                 <input
-                                  type="email"
-                                  placeholder="nafis@gmail.com"
+                                  type="text"
+                                  placeholder="nafis ahamed"
                                   className="input input-bordered"
                                   defaultValue={user?.displayName}
                                   name="name"
@@ -104,7 +137,7 @@ const Requestblood = () => {
                                   </span>
                                 </label>
                                 <input
-                                  type="email"
+                                  type="text"
                                   placeholder="A+"
                                   className="input input-bordered"
                                   defaultValue={item.bloodGroup}
@@ -135,7 +168,7 @@ const Requestblood = () => {
                                   </span>
                                 </label>
                                 <input
-                                  type="number"
+                                  type="text"
                                   placeholder="+880 019xxxx"
                                   className="input input-bordered"
                                   name="phone_number"
