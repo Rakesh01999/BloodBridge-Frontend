@@ -5,11 +5,13 @@ import React, { useContext, useState } from "react";
 
 import Swal from "sweetalert2";
 import { AuthContext } from "../../../providers/AuthProvider";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
 
 const Donar = () => {
 
      const {user} = useContext(AuthContext)
      const [startDate, setStartDate] = useState(new Date());
+     const axiosSecure = useAxiosPublic()
 
      const submitform = e =>{       
          e.preventDefault();
@@ -27,9 +29,20 @@ const Donar = () => {
             email,name,Phone_number,Disease,date,bloodgroup,status,number_of_donation
          }
 
-         console.log(Information);
-         
+         axiosSecure.post('/information',Information)
+         .then(res=>{
+          Swal.fire({
+            title: "Accepted!",
+            text: "Your file has been Accepted.",
+            icon: "success"
+          });
 
+         })
+         .catch(error=>{
+            console.log(error.message);
+            
+         });
+        form.reset()
      }
     return (
         <div className="hero min-h-screen bg-base-200  bg-[url('https://i.postimg.cc/dQhJF34k/web-development1.png')]">
