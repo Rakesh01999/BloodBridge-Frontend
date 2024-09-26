@@ -8,8 +8,8 @@ const Dashboard = () => {
        
             <div className="flex">
             {/* side bar */}
-            <div className="w-64 min-h-screen bg-blue-600 text-white">
-            <ul className="menu p-4">
+            <div className="md:w-64 w-64 min-h-screen bg-blue-600 text-white ">
+            <ul className="menu p-8 lg:w-[280px] ">
             <li><NavLink to='/dashboard/donar'><MdBloodtype></MdBloodtype>Donation blood</NavLink> </li>
             <li><NavLink to='/dashboard/history'><FaHouseUser></FaHouseUser> Donation History</NavLink> </li>
             <li><NavLink to='/dashboard/requestblood'><MdBloodtype></MdBloodtype>request blood</NavLink> </li>
@@ -19,7 +19,7 @@ const Dashboard = () => {
            
             </div>
             {/* dashboard content */}
-            <div className="flex-1 p-8">
+            <div className="flex-1 p-6">
                 <Outlet></Outlet>
             </div>
         </div>
