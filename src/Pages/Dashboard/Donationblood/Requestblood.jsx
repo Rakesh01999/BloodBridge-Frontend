@@ -50,11 +50,26 @@ const Requestblood = () => {
         return
     }
 
-    const information = {
+    const Information = {
          email,name,Phone_number,date,bloodgroup,status,Acc_quantity
     }
-    
-    
+
+    axiosSecure
+      .post("/information", Information)
+      .then((res) => {
+        axiosSecure.patch("/bloodGroups1", Information).then(() => {
+          Swal.fire({
+            title: "Accepted!",
+            text: "Your Request has been Accepted.",
+            icon: "success",
+          });
+          refetch()
+        });
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+    // form.reset();
   }
 
   return (
