@@ -154,7 +154,7 @@ const Donar = () => {
           <div className="">
             <label className="label">
               <span className="label-text text-black font-bold">
-                Phone number
+                Quantity
               </span>
             </label>
             <input
