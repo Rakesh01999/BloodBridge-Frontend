@@ -1,8 +1,14 @@
-import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import React, { useContext, useState } from "react";
+import Swal from "sweetalert2";
+import { AuthContext } from "../../../providers/AuthProvider";
 const Requestblood = () => {
   const axiosSecure = useAxiosPublic();
+  const { user } = useContext(AuthContext);
+  const [startDate, setStartDate] = useState(new Date());
   const {
     data: blood = [],
     isLoading,
@@ -50,48 +56,54 @@ const Requestblood = () => {
                     <section>
                       <dialog
                         id={item._id}
-                        className="modal modal-bottom sm:modal-middle"
+                        className="modal modal-middle sm:modal-middle"
                       >
                         <div className="modal-box">
                           <h3 className="font-bold text-lg">Submission box</h3>
                           <p className="py-4">
                             Press ESC key or click the button below to close
                           </p>
-                          <form>
-                            <h1>status</h1>
+                          <form className="card-body">
+                            <div className="flex space-x-3 ml-[-20px]">
+                              <div className="">
+                                <label className="label">
+                                  <span className="label-text text-black ">
+                                    Name
+                                  </span>
+                                </label>
+                                <input
+                                  type="email"
+                                  placeholder="nafis@gmail.com"
+                                  className="input input-bordered"
+                                  defaultValue={user?.displayName}
+                                  name="email"
+                                  required
+                                />
+                              </div>
+                              <div className="">
+                                <label className="label">
+                                  <span className="label-text text-black ">
+                                    Email
+                                  </span>
+                                </label>
+                                <input
+                                  type="email"
+                                  placeholder="nafis@gmail.com"
+                                  className="input input-bordered"
+                                  defaultValue={user?.email}
+                                  name="email"
+                                  required
+                                />
+                              </div>
+                            </div>
 
-                            <label htmlFor="">
-                              <span className="text-xl">pdf link: </span>
-                              <input className="ml-2 mt-3" type="text" />
-                            </label>
-                            <br />
-                            <label htmlFor="">
-                              <span className="text-xl">
-                                <span className="mr-2">notes:</span>
-                                <span className="font-extralight">box</span>
-                              </span>
-                            </label>
-                            <br />
-                            <input
-                              type="text"
-                              placeholder="mark input field"
-                              className="input input-bordered w-full max-w-xs mt-5"
-                              name="obtainmark"
-                              required
-                            />
-                            <br />
-                            <textarea
-                              placeholder="feedback field"
-                              className="textarea textarea-bordered textarea-sm w-full max-w-xs mt-5"
-                              name="feedback"
-                              required
-                            ></textarea>
-                            <input type="text" name="id" className="hidden" />
-                            <input
-                              type="submit"
-                              className="lg:mt-4 md:mt-4 mt-2 btn btn-primary w-3/4 lg:ml-16"
-                              value="Submit"
-                            />
+                            <div className="flex justify-center">
+                              <input
+                                type="submit"
+                                className="lg:mt-4 md:mt-4 mt-2 btn btn-primary w-24 lg:w-[200px] "
+                                value="Submit"
+                              />
+                            </div>
                           </form>
                           <div className="modal-action">
                             <form method="dialog">
