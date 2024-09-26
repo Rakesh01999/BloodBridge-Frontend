@@ -13,31 +13,31 @@ const Donar = () => {
        
         <form  className="card-body">
           {/* 1st input */}
-          <h2 className="text-2xl text-white text-center">Update assignment</h2>
+          <h2 className="text-2xl text-white text-center">Donar information</h2>
           <div className="lg:flex md:flex lg:gap-4 gap-2 md:gap-4 justify-center flex">
             <div className="">
               <label className="label">
-                <span className="label-text text-black font-bold">title</span>
+                <span className="label-text text-black font-bold">Name</span>
               </label>
               <input
                 type="text"
                 placeholder="Title"
                 className="input lg:input-lg input-bordered lg:w-[500px] md:w-[250px] w-[150px]"
-                // defaultValue={title}
-                name="title"
+                defaultValue={"name"}
+                name="name"
                 required
               />
             </div>
             <div className="">
               <label className="label">
-                <span className="label-text text-black font-bold">Description</span>
+                <span className="label-text text-black font-bold">Email</span>
               </label>
               <input
-                type="text"
-                placeholder="description"
+                type="email"
+                placeholder="nafis@gmail.com"
                 className="input lg:input-lg input-bordered lg:w-[500px] md:w-[250px] w-[150px]"
-                // defaultValue={description}
-                name="description"
+                defaultValue={"email"}
+                name="email"
                 required
               />
             </div>
@@ -46,27 +46,26 @@ const Donar = () => {
           <div className="lg:flex md:flex lg:gap-4 gap-2 md:gap-4 justify-center flex">
             <div className="">
               <label className="label">
-                <span className="label-text text-black font-bold">Marks</span>
+                <span className="label-text text-black font-bold">Phone number</span>
               </label>
               <input
-                type="text"
-                placeholder="marks"
+                type="number"
+                placeholder="Phone_number"
                 className="input lg:input-lg input-bordered lg:w-[500px] md:w-[250px] w-[150px]"
-                name="marks"
+                name="phone_number"
                 // defaultValue={marks}
                 required
               />
             </div>
             <div className="">
               <label className="label">
-                <span className="label-text text-black font-bold">thumbnail Image URL</span>
+                <span className="label-text text-black font-bold">Disease</span>
               </label>
               <input
                 type="text"
-                placeholder="thumbnail Image URL"
+                placeholder="Disease"
                 className="input lg:input-lg input-bordered lg:w-[500px] md:w-[250px] w-[150px]"
-                name="thumbnail"
-                // defaultValue={image}
+                name="disease"
                 required
               />
             </div>
@@ -75,12 +74,17 @@ const Donar = () => {
           <div className="lg:flex md:flex lg:gap-4 gap-2 md:gap-4 justify-center flex">
             <div className="">
               <label className="label">
-                <span className="label-text text-black font-bold">Select difficulty</span>
+                <span className="label-text text-black font-bold">Select blood</span>
               </label>
-              <select className="input lg:input-lg input-bordered lg:w-[500px] md:w-[250px] w-[150px]" value={"Easy"}  name="difficulty" required>
-                <option value="easy">Easy</option>
-                <option value="medium">Medium</option>
-                <option value="hard">Hard</option>
+              <select className="input lg:input-lg input-bordered lg:w-[500px] md:w-[250px] w-[150px]"  name="blood" required>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
               </select>
             </div>
             <div className="">
@@ -93,7 +97,7 @@ const Donar = () => {
           <div className="flex justify-center">
             <input
               type="submit"
-              className="lg:mt-4 md:mt-4 mt-2 btn btn-primary w-3/4 lg:ml-16"
+              className="lg:mt-4 md:mt-4 mt-2 btn btn-primary w-24 lg:w-[200px] "
               value="Update"
             />
           </div>
