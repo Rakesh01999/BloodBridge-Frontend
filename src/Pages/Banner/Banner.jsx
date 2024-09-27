@@ -19,7 +19,9 @@ const Banner = () => {
         <div>
             {/* <h3 className='text-center font-bold text-3xl'> This Is Banner</h3> */}
             <Slider {...settings}>
-                <div><h3>Slide 1</h3></div>
+                <div>
+                    <h3>Slide 1</h3>
+                </div>
                 <div><h3>Slide 2</h3></div>
                 <div><h3>Slide 3</h3></div>
             </Slider>

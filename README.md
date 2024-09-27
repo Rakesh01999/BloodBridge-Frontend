@@ -1,5 +1,6 @@
 
-# **BloodBridge Management System (BBMS)**
+# **BloodBridge(BBMS)**
+## **Blood Bank Management System**
 
 **BloodBridge** is a web-based Blood Bank Management System designed to manage and streamline blood donations, requests, and inventories efficiently. The system supports users( donor, patient) and admin roles, providing secure authentication, request approval workflows, and detailed reporting.
 
