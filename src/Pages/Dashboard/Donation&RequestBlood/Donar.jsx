@@ -50,7 +50,7 @@ const Donar = () => {
 
       <form onSubmit={submitform} className="card-body">
         {/* 1st input */}
-        <h2 className="text-2xl text-white text-center">Donar information</h2>
+        <h2 className="text-2xl text-red-600 font-bold text-center mt-5">Donar information</h2>
         <div className="lg:flex md:flex lg:gap-4 gap-2 md:gap-4 justify-center flex">
           <div className="">
             <label className="label">
@@ -153,7 +153,7 @@ const Donar = () => {
         <div className="flex justify-center">
           <input
             type="submit"
-            className="lg:mt-4 md:mt-4 mt-2 btn btn-primary w-24 lg:w-[200px] "
+            className="lg:mt-4 md:mt-4 mt-2 btn btn-primary bg-red-500 hover:rounded-full text-white w-24 lg:w-[200px] "
             value="Submit"
           />
         </div>

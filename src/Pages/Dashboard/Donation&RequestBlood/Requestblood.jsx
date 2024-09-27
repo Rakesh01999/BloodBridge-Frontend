@@ -45,7 +45,7 @@ const Requestblood = () => {
         if (amount[0].bloodQuantity < Acc_quantity) {
             Swal.fire({
                 title: "Opps!",
-                text: `I have not ${Acc_quantity} ml blood`,
+                text: `We have not ${Acc_quantity} ml blood`,
                 icon: "error",
             });
             return
@@ -59,13 +59,18 @@ const Requestblood = () => {
             .post("/information", Information)
             .then((res) => {
                 // axiosSecure.patch("/bloodGroups1", Information).then(() => {
-                axiosPublic.patch("/bloodGroups1", Information).then(() => {
-                    Swal.fire({
-                        title: "Accepted!",
-                        text: "Your Request has been Accepted.",
-                        icon: "success",
-                    });
-                    refetch()
+                // axiosPublic.patch("/bloodGroups1", Information).then(() => {
+                //     Swal.fire({
+                //         title: "Accepted!",
+                //         text: "Your Request has been Accepted.",
+                //         icon: "success",
+                //     });
+                //     refetch()
+                // });
+                Swal.fire({
+                    title: "Accepted!",
+                    text: "Your Request has been Recorded.",
+                    icon: "success",
                 });
             })
             .catch((error) => {
@@ -76,10 +81,10 @@ const Requestblood = () => {
 
     return (
         <div>
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto mt-20">
                 <table className="table table-zebra">
                     {/* head */}
-                    <thead>
+                    <thead className="bg-red-600 text-white">
                         <tr>
                             <th></th>
                             <th>Blood Group</th>
@@ -95,7 +100,7 @@ const Requestblood = () => {
                                     <td>{item.bloodGroup}</td>
                                     <td>{item.bloodQuantity}</td>
                                     <td>
-                                        <button
+                                        {/* <button
                                             className="btn btn-primary"
                                             onClick={() => {
                                                 document.getElementById(item._id).showModal()
@@ -104,7 +109,22 @@ const Requestblood = () => {
                                             }
                                         >
                                             Request
-                                        </button>
+                                        </button> */}
+
+                                        {/* <div className="flex justify-center"> */}
+                                        <div className="">
+                                            <input
+                                                type="submit"
+                                                className="lg:mt-4 md:mt-4 mt-2 btn btn-primary bg-red-500 hover:rounded-full text-white w-24 lg:w-[200px] "
+                                                value="Request"
+                                                onClick={() => {
+                                                    document.getElementById(item._id).showModal()
+                                                    setId(item._id)
+                                                }
+                                                }
+                                            />
+                                        </div>
+
                                         <section>
                                             <dialog
                                                 id={item._id}
@@ -127,6 +147,7 @@ const Requestblood = () => {
                                                                     defaultValue={user?.displayName}
                                                                     name="name"
                                                                     required
+                                                                    readOnly="true"
                                                                 />
                                                             </div>
                                                             <div className="">
@@ -142,6 +163,7 @@ const Requestblood = () => {
                                                                     defaultValue={user?.email}
                                                                     name="email"
                                                                     required
+                                                                    readOnly="true"
                                                                 />
                                                             </div>
                                                         </div>
@@ -159,6 +181,7 @@ const Requestblood = () => {
                                                                     defaultValue={item.bloodGroup}
                                                                     name="blood"
                                                                     required
+                                                                    readOnly="true"
                                                                 />
                                                             </div>
                                                             <div className="">

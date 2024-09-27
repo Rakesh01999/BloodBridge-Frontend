@@ -15,7 +15,6 @@ const DonationAppeal = () => {
             // return res.data;
             // Filter only requests with status 'pending'
             return res.data.filter(user => user.status === 'pending');
-
         }
     });
 
@@ -31,17 +30,40 @@ const DonationAppeal = () => {
             confirmButtonText: "Yes, approve it!"
         }).then((result) => {
             if (result.isConfirmed) {
+                // First, approve the donation request
                 axiosPublic.patch(`/information/${user._id}`, { status: "approved" })
                     .then(res => {
                         if (res.data.modifiedCount > 0) {
-                            refetch();
-                            Swal.fire({
-                                title: "Approved!",
-                                text: "The donation request has been approved.",
-                                icon: "success"
+                            // After approving, increase the blood quantity
+                            axiosPublic.patch('/bloodGroups', {
+                                bloodgroup: user.bloodgroup,
+                                quantity: user.quantity
+                            }).then(res => {
+                                if (res.data.modifiedCount > 0) {
+                                    refetch();
+                                    Swal.fire({
+                                        title: "Approved!",
+                                        text: "The donation request has been approved and blood quantity updated.",
+                                        icon: "success"
+                                    });
+                                }
+                            }).catch(error => {
+                                console.error("Error updating blood quantity:", error);
+                                Swal.fire({
+                                    title: "Error!",
+                                    text: "An error occurred while updating blood quantity.",
+                                    icon: "error"
+                                });
                             });
                         }
-                    })
+                    }).catch(error => {
+                        console.error("Error approving donation request:", error);
+                        Swal.fire({
+                            title: "Error!",
+                            text: "An error occurred while approving the request.",
+                            icon: "error"
+                        });
+                    });
             }
         });
     };
@@ -87,6 +109,7 @@ const DonationAppeal = () => {
                             <th>Phone</th>
                             <th>Disease</th>
                             <th>Blood Group</th>
+                            <th>Blood Quantity</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -101,6 +124,7 @@ const DonationAppeal = () => {
                                     <td>{user.Phone_number}</td>
                                     <td>{user.Disease}</td>
                                     <td>{user.bloodgroup}</td>
+                                    <td>{user.quantity}</td>
                                     <td>{user.status}</td>
                                     <td>
                                         {user.status === 'pending' ? (

@@ -1,85 +1,95 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import useAxiosPublic from '../../../hooks/useAxiosPublic';
-import { AuthContext } from '../../../providers/AuthProvider';
 import { useQuery } from '@tanstack/react-query';
-import DatePicker from 'react-datepicker';
 import Swal from 'sweetalert2';
 
 const UpdateBloodBank = () => {
     const axiosPublic = useAxiosPublic();
-    const { user } = useContext(AuthContext);
-    const [startDate, setStartDate] = useState(new Date());
-    const [id, setId] = useState(null)
-    const {
-        data: blood = [],
-        isLoading,
-        refetch,
-    } = useQuery({
-        queryKey: ["blood"],
+    const [id, setId] = useState(null);
+    const [selectedBloodGroup, setSelectedBloodGroup] = useState('');
+    const [quantity, setQuantity] = useState('');
+
+    const { data: blood = [], isLoading, refetch } = useQuery({
+        queryKey: ['blood'],
         queryFn: async () => {
-            const res = await axiosPublic.get("/bloodGroups");
+            const res = await axiosPublic.get('/bloodGroups');
             return res.data;
         },
     });
+
     if (isLoading) {
         return <div>Loading.....</div>;
     }
 
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+        
+    //     if (!selectedBloodGroup || !quantity) {
+    //         Swal.fire({
+    //             title: 'Error!',
+    //             text: 'Please select a blood group and enter a valid quantity.',
+    //             icon: 'error',
+    //         });
+    //         return;
+    //     }
+
+    //     // Create update object
+    //     const updateData = {
+    //         bloodgroup: selectedBloodGroup,
+    //         Acc_quantity: Number(quantity), // Ensure it's a number
+    //     };
+
+    //     axiosPublic
+    //         .patch('/bloodGroups', updateData)
+    //         .then(() => {
+    //             Swal.fire({
+    //                 title: 'Updated!',
+    //                 text: 'Blood quantity has been updated.',
+    //                 icon: 'success',
+    //             });
+    //             refetch();
+    //         })
+    //         .catch((error) => {
+    //             console.log(error.message);
+    //         });
+
+    //     // Close the modal
+    //     document.getElementById(id).close();
+    //     // Reset states after submit
+    //     setSelectedBloodGroup('');
+    //     setQuantity('');
+    // };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const form = e.target;
-        let email = form.email.value;
-        let name = form.name.value;
-        let Phone_number = form.phone_number.value;
-        let date = form.date.value;
-        let bloodgroup = form.blood.value;
-        let status = "Acceptor_pending";
-        let Acc_quantity = form.quantity.value;
-        document.getElementById(id).close()
-
-        let amount = blood?.filter((item) => item.bloodGroup === bloodgroup)
-
-
-        if (amount[0].bloodQuantity < Acc_quantity) {
-            Swal.fire({
-                title: "Opps!",
-                text: `I have not ${Acc_quantity} ml blood`,
-                icon: "error",
-            });
-            return
-        }
-
-        const Information = {
-            email, name, Phone_number, date, bloodgroup, status, Acc_quantity
-        }
-
+        const bloodgroup = selectedBloodGroup || e.target.blood.value;
+        const updatedQuantity = parseInt(quantity) || parseInt(e.target.quantity.value); // Ensure it's an integer
+        document.getElementById(id).close();
+    
+        const updateData = { bloodgroup, quantity: updatedQuantity }; // Updated key to match your backend
+    
         axiosPublic
-            .post("/information", Information)
-            .then((res) => {
-                // axiosSecure.patch("/bloodGroups1", Information).then(() => {
-                axiosPublic.patch("/bloodGroups1", Information).then(() => {
-                    Swal.fire({
-                        title: "Accepted!",
-                        text: "Blood Quantity has been Updated.",
-                        icon: "success",
-                    });
-                    refetch()
+            .patch('/bloodGroups', updateData)  // Make sure this matches your backend route
+            .then(() => {
+                Swal.fire({
+                    title: 'Updated!',
+                    text: 'Blood quantity has been updated.',
+                    icon: 'success',
                 });
+                refetch();
             })
             .catch((error) => {
                 console.log(error.message);
             });
-        // form.reset();
-    }
+    };
 
+    
     return (
         <div>
-            <h3 className='text-center font-bold text-3xl mt-24'> Update Blood Bank</h3>
+            <h3 className='text-center font-bold text-3xl mt-24'>Update Blood Bank</h3>
             <div>
                 <div className="overflow-x-auto">
                     <table className="table table-zebra">
-                        {/* head */}
                         <thead>
                             <tr>
                                 <th></th>
@@ -88,87 +98,83 @@ const UpdateBloodBank = () => {
                                 <th>Update (Action)</th>
                             </tr>
                         </thead>
-                        {blood?.map((item, index) => {
-                            return (
-                                <tbody key={index}>
-                                    <tr>
-                                        <th>{index + 1}</th>
-                                        <td>{item.bloodGroup}</td>
-                                        <td>{item.bloodQuantity}</td>
-                                        <td>
-                                            <button
-                                                className="btn btn-primary"
-                                                onClick={() => {
-                                                    document.getElementById(item._id).showModal()
-                                                    setId(item._id)
-                                                }
-                                                }
-                                            >
-                                                Update
-                                            </button>
-                                            <section>
-                                                <dialog
-                                                    id={item._id}
-                                                    className="modal modal-middle sm:modal-middle"
-                                                >
-                                                    <div className="modal-box">
-                                                        <h3 className="font-bold text-lg text-center">Acceptor Information</h3>
-                                                        <form onSubmit={handleSubmit} className="card-body">
-                                                            
-                                                            <div className="flex space-x-3 ml-[-20px]">
-                                                                <div className="">
-                                                                    <label className="label">
-                                                                        <span className="label-text text-black ">
-                                                                            Group
-                                                                        </span>
-                                                                    </label>
-                                                                    <input
-                                                                        type="text"
-                                                                        placeholder="A+"
-                                                                        className="input input-bordered"
-                                                                        defaultValue={item.bloodGroup}
-                                                                        name="blood"
-                                                                        required
-                                                                    />
-                                                                </div>
-                                                                <div className="">
-                                                                    <label className="label">
-                                                                        <span className="label-text text-black ">
-                                                                            Qunatity
-                                                                        </span>
-                                                                    </label>
-                                                                    <input
-                                                                        type="number"
-                                                                        placeholder="80ml"
-                                                                        className="input input-bordered"
-                                                                        name="quantity"
-                                                                        required
-                                                                    />
-                                                                </div>
+                        <tbody>
+                            {blood.map((item, index) => (
+                                <tr key={index}>
+                                    <th>{index + 1}</th>
+                                    <td>{item.bloodGroup}</td>
+                                    <td>{item.bloodQuantity}</td>
+                                    <td>
+                                        <button
+                                            className="btn btn-primary"
+                                            onClick={() => {
+                                                document.getElementById(item._id).showModal();
+                                                setId(item._id);
+                                                setSelectedBloodGroup(item.bloodGroup);
+                                            }}
+                                        >
+                                            Update
+                                        </button>
+                                        <section>
+                                            <dialog id={item._id} className="modal modal-middle sm:modal-middle">
+                                                <div className="modal-box">
+                                                    <h3 className="font-bold text-lg text-center">Update Blood Quantity</h3>
+                                                    <form onSubmit={handleSubmit} className="card-body">
+                                                        <div className="flex space-x-3 ml-[-20px]">
+                                                            <div>
+                                                                <label className="label">
+                                                                    <span className="label-text text-black">Blood Group</span>
+                                                                </label>
+                                                                <select
+                                                                    name="blood"
+                                                                    className="select select-bordered"
+                                                                    value={selectedBloodGroup}
+                                                                    onChange={(e) => setSelectedBloodGroup(e.target.value)}
+                                                                    required
+                                                                >
+                                                                    <option value="">Select a Blood Group</option>
+                                                                    {blood.map((group, idx) => (
+                                                                        <option key={idx} value={group.bloodGroup}>
+                                                                            {group.bloodGroup}
+                                                                        </option>
+                                                                    ))}
+                                                                </select>
                                                             </div>
-                                                            
-                                                            <div className="flex justify-center">
+                                                            <div>
+                                                                <label className="label">
+                                                                    <span className="label-text text-black">Quantity</span>
+                                                                </label>
                                                                 <input
-                                                                    type="submit"
-                                                                    className="lg:mt-4 md:mt-4 mt-2 btn btn-primary w-24 lg:w-[200px] "
-                                                                    value="Submit"
+                                                                    type="number"
+                                                                    placeholder="Enter Quantity"
+                                                                    className="input input-bordered"
+                                                                    value={quantity}
+                                                                    onChange={(e) => setQuantity(e.target.value)}
+                                                                    name="quantity"
+                                                                    required
                                                                 />
                                                             </div>
-                                                        </form>
-                                                        <div className="modal-action">
-                                                            <form method="dialog">
-                                                                {/* if there is a button in form, it will close the modal */}
-                                                                <button className="btn">Close</button>
-                                                            </form>
                                                         </div>
+                                                        <div className="flex justify-center">
+                                                            <input
+                                                                type="submit"
+                                                                className="lg:mt-4 md:mt-4 mt-2 btn btn-primary w-24 lg:w-[200px]"
+                                                                value="Submit"
+                                                            />
+                                                        </div>
+                                                    </form>
+                                                    <div className="modal-action">
+                                                        <form method="dialog">
+                                                            <button className="btn">Close</button>
+                                                        </form>
                                                     </div>
-                                                </dialog>
-                                            </section>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            );
-                        })}
+                                                </div>
+                                            </dialog>
+                                        </section>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
                     </table>
                 </div>
             </div>

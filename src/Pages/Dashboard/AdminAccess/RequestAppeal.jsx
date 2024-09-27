@@ -5,55 +5,78 @@ import Swal from 'sweetalert2';
 import { FaCheck, FaTimes } from 'react-icons/fa';
 
 const RequestAppeal = () => {
-
     const axiosPublic = useAxiosPublic();
 
-    // Fetching donation requests (users with pending status)
     const { refetch, data: users = [] } = useQuery({
         queryKey: ['donationRequests'],
         queryFn: async () => {
             const res = await axiosPublic.get('/information');
-            // return res.data;
-            // Filter only requests with status 'pending'
-            // return res.data.filter(user => user.status === 'pending');
-            // Filter only requests with status 'Acceptor_pending'
             return res.data.filter(user => user.status === 'Acceptor_pending');
-
         }
     });
 
-    // Handle approving donation request
-    const handleApprove = user => {
-        Swal.fire({
-            title: "Are you sure?",
-            text: `Do you want to approve the donation request for ${user.name}?`,
-            icon: "question",
-            showCancelButton: true,
-            confirmButtonColor: "#28a745",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, approve it!"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                axiosPublic.patch(`/information/${user._id}`, { status: "approved" })
-                    .then(res => {
-                        if (res.data.modifiedCount > 0) {
-                            refetch();
-                            Swal.fire({
-                                title: "Approved!",
-                                text: "The donation request has been approved.",
-                                icon: "success"
-                            });
-                        }
-                    })
+    const handleApprove = async (user) => {
+        try {
+            // First, fetch the current blood quantity for the requested blood group
+            const bloodGroupsResponse = await axiosPublic.get('/bloodGroups');
+            const bloodGroups = bloodGroupsResponse.data;
+            const requestedBloodGroup = bloodGroups.find(group => group.bloodGroup === user.bloodgroup);
+
+            if (!requestedBloodGroup) {
+                throw new Error('Blood group not found');
             }
-        });
+
+            // if (requestedBloodGroup.bloodQuantity < user.quantity) {
+            if (requestedBloodGroup.bloodQuantity < user.Acc_quantity) {
+                Swal.fire({
+                    title: "Insufficient Blood Quantity",
+                    text: `The requested quantity (${user.Acc_quantity}) is more than the available quantity (${requestedBloodGroup.bloodQuantity}).`,
+                    icon: "error"
+                });
+                return;
+            }
+
+            const result = await Swal.fire({
+                title: "Are you sure?",
+                text: `Do you want to approve the blood request for ${user.name}?`,
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonColor: "#28a745",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, approve it!"
+            });
+
+            if (result.isConfirmed) {
+                // Approve the request
+                await axiosPublic.patch(`/information/${user._id}`, { status: "approved" });
+
+                // Decrease the blood quantity
+                await axiosPublic.patch('/bloodGroups1', {
+                    bloodgroup: user.bloodgroup,
+                    Acc_quantity: user.Acc_quantity
+                });
+
+                refetch();
+                Swal.fire({
+                    title: "Approved!",
+                    text: "The blood request has been approved and blood quantity updated.",
+                    icon: "success"
+                });
+            }
+        } catch (error) {
+            console.error("Error in approval process:", error);
+            Swal.fire({
+                title: "Error!",
+                text: "An error occurred while processing the request.",
+                icon: "error"
+            });
+        }
     };
 
-    // Handle rejecting donation request
     const handleReject = user => {
         Swal.fire({
             title: "Are you sure?",
-            text: `Do you want to reject the donation request for ${user.name}?`,
+            text: `Do you want to reject the blood request for ${user.name}?`,
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#d33",
@@ -67,8 +90,9 @@ const RequestAppeal = () => {
                             refetch();
                             Swal.fire({
                                 title: "Rejected!",
-                                text: "The donation request has been rejected.",
-                                icon: "error"
+                                text: "The blood request has been rejected.",
+                                // icon: "error"
+                                icon: "alert"
                             });
                         }
                     })
@@ -78,7 +102,7 @@ const RequestAppeal = () => {
 
     return (
         <div>
-            <h3 className='text-center font-bold text-3xl mt-24'> Welcome Blood Request Appeal</h3>
+            <h3 className='text-center font-bold text-3xl mt-24'>Welcome Blood Request Appeal</h3>
             <div className="overflow-x-auto my-8">
                 <table className="table w-full">
                     <thead>
@@ -89,6 +113,7 @@ const RequestAppeal = () => {
                             <th>Phone</th>
                             <th>Disease</th>
                             <th>Blood Group</th>
+                            <th>Quantity</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -103,10 +128,10 @@ const RequestAppeal = () => {
                                     <td>{user.Phone_number}</td>
                                     <td>{user.Disease}</td>
                                     <td>{user.bloodgroup}</td>
+                                    <td>{user.Acc_quantity}</td>
                                     <td>{user.status}</td>
                                     <td>
-                                        {/* {user.status === 'pending' ? ( */}
-                                        {user.status === 'Acceptor_pending' ? (
+                                        {user.status === 'Acceptor_pending' && (
                                             <div className="flex space-x-2">
                                                 <button onClick={() => handleApprove(user)} className="btn btn-success btn-sm">
                                                     <FaCheck /> Approve
@@ -115,7 +140,8 @@ const RequestAppeal = () => {
                                                     <FaTimes /> Reject
                                                 </button>
                                             </div>
-                                        ) : (
+                                        )}
+                                        {user.status !== 'Acceptor_pending' && (
                                             <span className={`badge ${user.status === 'approved' ? 'badge-success' : 'badge-danger'}`}>
                                                 {user.status}
                                             </span>
@@ -125,7 +151,7 @@ const RequestAppeal = () => {
                             ))
                         ) : (
                             <tr>
-                                <td colSpan="8" className="text-center">
+                                <td colSpan="9" className="text-center">
                                     No pending requests found
                                 </td>
                             </tr>

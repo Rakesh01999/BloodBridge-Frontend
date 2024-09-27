@@ -1,16 +1,39 @@
 
 import useAuth from "../../../hooks/useAuth";
+import logo from "../../../assets/images/bb.png"
 
 const UserHome = () => {
     const { user } = useAuth();
     return (
         <div>
-            <h2 className="text-xl md:text-3xl lg:text-4xl mt-20 mx-auto">
-                <span>Hi Welcome </span>
-                {
-                    user?.displayName ? user.displayName : 'Back'
-                }
-            </h2>
+            <div className="p-4 flex flex-col items-center">
+                <h2 className="text-xl md:text-3xl lg:text-4xl mt-20 text-center mx-auto">
+                    <span >Hi </span>
+                    <span className="font-bold">
+                        {
+                            user?.displayName ? user.displayName : 'Back'
+                        }
+                    </span>
+                </h2>
+                <div data-aos="zoom-out-down">
+                    <div className="flex justify-center">
+                        <img src={logo} alt="" />
+                    </div>
+                </div>
+                <div className="w-full max-w-lg">
+                    <div>
+                        <div data-aos="zoom-out-right">
+                            <h2 className="text-2xl text-center my-4">
+                                Welcome to Blood Bridge .
+                            </h2>
+                            <h2 className="text-xl text-center mb-4">
+                                Donate <span className="font-bold text-red-500">Blood</span>  Save life .
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     );
 };

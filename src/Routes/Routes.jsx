@@ -16,6 +16,7 @@ import ManageUsers from "../Pages/Dashboard/AdminAccess/ManageUsers";
 import DonationAppeal from "../Pages/Dashboard/AdminAccess/DonationAppeal";
 import RequestAppeal from "../Pages/Dashboard/AdminAccess/RequestAppeal";
 import UpdateBloodBank from "../Pages/Dashboard/AdminAccess/UpdateBloodBank";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
     {
