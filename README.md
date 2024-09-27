@@ -25,7 +25,7 @@ The BloodBridge Management System (BBMS) allows donors and patients to interact 
 
 Check out the live version of BloodBridge Management System (BBMS):
 
-**[BloodBridge Live](https://bloodbridge-bbms-live.netlify.app/)**
+**[BloodBridge Live](https://bloodbridge-bloodbank.web.app)**
 
 ---
 
