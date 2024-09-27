@@ -5,9 +5,9 @@ import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import { AuthContext } from "../../../providers/AuthProvider";
 
 const Requesthistory = () => {
-    const axiosSecure = useAxiosPublic();
-    const [donationamount,setDonationAmount] = useState(null)
-    const [count,setCount] = useState(null)
+    const axiosPublic = useAxiosPublic();
+    // const [donationamount,setDonationAmount] = useState(null)
+    // const [count,setCount] = useState(null)
     const {user} = useContext(AuthContext)
     const {
         data: blood = [],
@@ -15,7 +15,7 @@ const Requesthistory = () => {
       } = useQuery({
         queryKey: ["blood"],
         queryFn: async () => {
-          const res = await axiosSecure.get(`/information1/${user?.email}`);
+          const res = await axiosPublic.get(`/information1/${user?.email}`);
           return res.data;
         },
       });

@@ -6,7 +6,7 @@ import React, { useContext, useState } from "react";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../../providers/AuthProvider";
 const Requestblood = () => {
-  const axiosSecure = useAxiosPublic();
+  const axiosPublic = useAxiosPublic();
   const { user } = useContext(AuthContext);
   const [startDate, setStartDate] = useState(new Date());
   const [id,setId] = useState(null)
@@ -17,13 +17,15 @@ const Requestblood = () => {
   } = useQuery({
     queryKey: ["blood"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/bloodGroups");
+      const res = await axiosPublic.get("/bloodGroups");
       return res.data;
     },
   });
   if (isLoading) {
     return <div>Loading.....</div>;
   }
+
+  console.log(blood)
   
   
   const handleSubmit = (e)=>{
@@ -54,22 +56,22 @@ const Requestblood = () => {
          email,name,Phone_number,date,bloodgroup,status,Acc_quantity
     }
 
-    axiosSecure
+    axiosPublic
       .post("/information", Information)
       .then((res) => {
-        axiosSecure.patch("/bloodGroups1", Information).then(() => {
-          Swal.fire({
-            title: "Accepted!",
-            text: "Your Request has been Accepted.",
-            icon: "success",
-          });
-          refetch()
-        });
+        // axiosPublic.patch("/bloodGroups1", Information).then(() => {
+        //   Swal.fire({
+        //     title: "Accepted!",
+        //     text: "Your Request has been Accepted.",
+        //     icon: "success",
+        //   });
+        //   refetch()
+        // });
       })
       .catch((error) => {
         console.log(error.message);
       });
-    // form.reset();
+    form.reset();
   }
 
   return (

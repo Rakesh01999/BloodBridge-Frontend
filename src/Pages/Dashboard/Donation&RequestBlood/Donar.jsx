@@ -1,3 +1,4 @@
+
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import React, { useContext, useState } from "react";
@@ -7,53 +8,46 @@ import { AuthContext } from "../../../providers/AuthProvider";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 
 const Donar = () => {
-  const { user } = useContext(AuthContext);
-  const [startDate, setStartDate] = useState(new Date());
-  const axiosPublic = useAxiosPublic();
 
-  const submitform = (e) => {
+  const { user } = useContext(AuthContext)
+  const [startDate, setStartDate] = useState(new Date());
+  const axiosSecure = useAxiosPublic()
+
+  const submitform = e => {
     e.preventDefault();
-    const form = e.target;
-    let email = form.email.value;
-    let name = form.name.value;
-    let Phone_number = form.phone_number.value;
-    let Disease = form.disease.value;
-    let date = form.date.value;
-    let bloodgroup = form.blood.value;
-    let status = "pending";
-    let number_of_donation = 1;
-    let quantity = form.quantity.value;
+    const form = e.target
+    let email = form.email.value
+    let name = form.name.value
+    let Phone_number = form.phone_number.value
+    let Disease = form.disease.value
+    let date = form.date.value
+    let bloodgroup = form.blood.value
+    let status = "pending"
+    let number_of_donation = 1
+    let quantity = form.quantity.value
 
     const Information = {
-      email,
-      name,
-      Phone_number,
-      Disease,
-      date,
-      bloodgroup,
-      status,
-      number_of_donation,
-      quantity,
-    };
+      email, name, Phone_number, Disease, date, bloodgroup, status, number_of_donation, quantity
+    }
 
-    axiosPublic
-      .post("/information", Information)
-      .then((res) => {
-        // axiosPublic.patch("/bloodGroups", Information).then(() => {
-        //   Swal.fire({
-        //     title: "Accepted!",
-        //     text: "Your file has been Accepted.",
-        //     icon: "success",
-        //   });
-        // });
+    axiosSecure.post('/information', Information)
+      .then(res => {
+        Swal.fire({
+          title: "Accepted!",
+          text: "Your file has been Accepted.",
+          icon: "success"
+        });
+
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error.message);
+
       });
-    form.reset();
-  };
+    form.reset()
+  }
   return (
-    <div className="hero min-h-screen bg-base-200  bg-[url('https://i.postimg.cc/dQhJF34k/web-development1.png')]">
+    <div className="hero min-h-screen bg-base-200  bg-[url('https://i.postimg.cc/PJ2g2SdJ/file1.png')]">
+
       <form onSubmit={submitform} className="card-body">
         {/* 1st input */}
         <h2 className="text-2xl text-white text-center">Donar information</h2>
@@ -69,6 +63,7 @@ const Donar = () => {
               defaultValue={user?.displayName}
               name="name"
               required
+              readOnly="true"
             />
           </div>
           <div className="">
@@ -82,16 +77,16 @@ const Donar = () => {
               defaultValue={user?.email}
               name="email"
               required
+              readOnly="true"
             />
           </div>
         </div>
+
         {/* 2nd input */}
         <div className="lg:flex md:flex lg:gap-4 gap-2 md:gap-4 justify-center flex">
           <div className="">
             <label className="label">
-              <span className="label-text text-black font-bold">
-                Phone number
-              </span>
+              <span className="label-text text-black font-bold">Phone number</span>
             </label>
             <input
               type="number"
@@ -119,15 +114,9 @@ const Donar = () => {
         <div className="lg:flex md:flex lg:gap-4 gap-2 md:gap-4 justify-center flex">
           <div className="">
             <label className="label">
-              <span className="label-text text-black font-bold">
-                Select blood
-              </span>
+              <span className="label-text text-black font-bold">Select blood</span>
             </label>
-            <select
-              className="input lg:input-lg input-bordered lg:w-[500px] md:w-[250px] w-[150px]"
-              name="blood"
-              required
-            >
+            <select className="input lg:input-lg input-bordered lg:w-[500px] md:w-[250px] w-[150px]" name="blood" required>
               <option value="A+">A+</option>
               <option value="A-">A-</option>
               <option value="B+">B+</option>
@@ -142,20 +131,14 @@ const Donar = () => {
             <label className="label">
               <span className="label-text text-black font-bold">Date</span>
             </label>
-            <DatePicker
-              name="date"
-              className="input lg:input-lg input-bordered lg:w-[500px] md:w-[250px] w-[150px]"
-              selected={startDate}
-              onChange={(date) => setStartDate(date)}
-            />
+            <DatePicker name="date" className="input lg:input-lg input-bordered lg:w-[500px] md:w-[250px] w-[150px]" selected={startDate} onChange={(date) => setStartDate(date)} />
           </div>
+
         </div>
         <div className="lg:flex md:flex lg:gap-4 gap-2 md:gap-4">
           <div className="">
             <label className="label">
-              <span className="label-text text-black font-bold">
-                Quantity
-              </span>
+              <span className="label-text text-black font-bold">Quantity of Blood</span>
             </label>
             <input
               type="number"
@@ -166,6 +149,7 @@ const Donar = () => {
             />
           </div>
         </div>
+
         <div className="flex justify-center">
           <input
             type="submit"

@@ -23,7 +23,7 @@ const Register = () => {
         const photo = e.target.photo.value;
         const email = e.target.email.value;
         const password = e.target.password.value;
-        const role = e.target.role.value; // Capture the selected role
+        // const role = e.target.role.value; // Capture the selected role
 
         setRegisterError('');
         setSuccess('');
@@ -52,7 +52,7 @@ const Register = () => {
                     photoURL: photo
                 })
                     .then(() => {
-                        const userInfo = { name: name, email: email, role: role }; // Include role in user info
+                        const userInfo = { name: name, email: email, role: "user" }; // Include role in user info
                         axiosPublic.post('/users', userInfo)
                             .then(res => {
                                 if (res.data.insertedId) {
@@ -112,16 +112,6 @@ const Register = () => {
                         <input type="text" name="photo" placeholder="Enter photo URL" className="input input-bordered w-full" required />
                     </div>
 
-                    <div className="form-control w-full mb-4">
-                        <label className="label">
-                            <span className="label-text">Role</span>
-                        </label>
-                        <select name="role" className="select select-bordered w-full" required>
-                            <option value="">Select Role</option>
-                            <option value="Donor">Donor</option>
-                            <option value="Patient">Patient</option>
-                        </select>
-                    </div>
 
                     <div className="form-control w-full mb-6">
                         <label className="label">
