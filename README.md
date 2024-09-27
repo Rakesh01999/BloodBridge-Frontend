@@ -7,7 +7,6 @@
 ## **Table of Contents**
 - [Overview](#overview)
 - [Live Link](#live-link)
-- [Theme](#theme)
 - [Features](#features)
 - [Technologies & Packages](#technologies--packages)
 - [Installation](#installation)
