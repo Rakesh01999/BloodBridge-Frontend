@@ -62,7 +62,7 @@ const ManageUsers = () => {
     console.log(users);
     return (
         <div>
-            <h3 className='text-center font-bold text-3xl mt-24'> All Users</h3>
+            <h3 className='text-center font-bold text-3xl mt-24'>Users can be managed here</h3>
             <div className="flex justify-evenly my-4">
                 <h2 className="text-3xl ">All Users</h2>
                 <h2 className="text-3xl ">Total Users: {users.length}</h2>
