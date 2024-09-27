@@ -44,7 +44,7 @@ const Dashboard = () => {
         }
     }, [users, user]);
 
-    console.log("Is Admin:", isAdmin);
+    // console.log("Is Admin:", isAdmin);
 
     return (
 

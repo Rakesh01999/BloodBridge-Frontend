@@ -49,7 +49,7 @@ const NavBar = () => {
         }
     }, [users, user]);
 
-    console.log("Is Admin:", isAdmin);
+    // console.log("Is Admin:", isAdmin);
 
     const navOptions = <>
         <li className='hover:text-yellow-300 hover:font-bold hover:text-[15px]'><Link to="/">Home</Link></li>
