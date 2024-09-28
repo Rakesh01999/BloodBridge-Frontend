@@ -12,6 +12,7 @@ const CardContainer = () => {
             return res.data;
         }
     });
+    // console.log(bloodGroups);
 
     if (isLoading) {
         return <div className="flex justify-center items-center h-screen">

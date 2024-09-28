@@ -97,11 +97,11 @@ const DonationAppeal = () => {
 
     return (
         <div>
-            <h3 className='text-center font-bold text-3xl mt-24'>Manage Donation Appeals</h3>
+            <h3 className='text-center font-bold text-3xl text-red-500 mt-24'>Manage Donation Appeals</h3>
 
             <div className="overflow-x-auto my-8">
                 <table className="table w-full">
-                    <thead>
+                    <thead className='bg-red-500 text-white lg:text-lg'>
                         <tr>
                             <th>#</th>
                             <th>Name</th>
@@ -132,7 +132,7 @@ const DonationAppeal = () => {
                                                 <button onClick={() => handleApprove(user)} className="btn btn-success btn-sm">
                                                     <FaCheck /> Approve
                                                 </button>
-                                                <button onClick={() => handleReject(user)} className="btn btn-danger btn-sm">
+                                                <button onClick={() => handleReject(user)} className="btn btn-danger bg-red-400 btn-sm">
                                                     <FaTimes /> Reject
                                                 </button>
                                             </div>

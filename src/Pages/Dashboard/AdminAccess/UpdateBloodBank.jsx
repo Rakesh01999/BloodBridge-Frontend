@@ -86,11 +86,11 @@ const UpdateBloodBank = () => {
     
     return (
         <div>
-            <h3 className='text-center font-bold text-3xl mt-24'>Update Blood Bank</h3>
+            <h3 className='text-center font-bold lg:text-3xl md:text-2xl text-red-500 mt-24 mb-4'>Update Blood Bank</h3>
             <div>
                 <div className="overflow-x-auto">
                     <table className="table table-zebra">
-                        <thead>
+                        <thead className='bg-red-500 text-white lg:text-lg'>
                             <tr>
                                 <th></th>
                                 <th>Blood Group</th>
@@ -117,7 +117,7 @@ const UpdateBloodBank = () => {
                                         </button>
                                         <section>
                                             <dialog id={item._id} className="modal modal-middle sm:modal-middle">
-                                                <div className="modal-box">
+                                                <div className="modal-box bg-red-300">
                                                     <h3 className="font-bold text-lg text-center">Update Blood Quantity</h3>
                                                     <form onSubmit={handleSubmit} className="card-body">
                                                         <div className="flex space-x-3 ml-[-20px]">
@@ -158,14 +158,15 @@ const UpdateBloodBank = () => {
                                                         <div className="flex justify-center">
                                                             <input
                                                                 type="submit"
-                                                                className="lg:mt-4 md:mt-4 mt-2 btn btn-primary w-24 lg:w-[200px]"
+                                                                // className="lg:mt-4 md:mt-4 mt-2 btn btn-primary w-24 lg:w-[200px]"
+                                                                className='lg:mt-4 md:mt-4 mt-2 btn btn-primary bg-red-500 hover:rounded-full text-white w-24 lg:w-[200px]'
                                                                 value="Submit"
                                                             />
                                                         </div>
                                                     </form>
-                                                    <div className="modal-action">
+                                                    <div className="modal-action flex justify-center">
                                                         <form method="dialog">
-                                                            <button className="btn">Close</button>
+                                                            <button className="btn hover:bg-red-500 hover:text-white hover:rounded-full">Close</button>
                                                         </form>
                                                     </div>
                                                 </div>

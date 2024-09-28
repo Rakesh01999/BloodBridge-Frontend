@@ -15,11 +15,6 @@ const UserHome = () => {
                         }
                     </span>
                 </h2>
-                <div data-aos="zoom-out-down">
-                    <div className="flex justify-center">
-                        <img src={logo} alt="" />
-                    </div>
-                </div>
                 <div className="w-full max-w-lg">
                     <div>
                         <div data-aos="zoom-out-right">
@@ -32,7 +27,11 @@ const UserHome = () => {
                         </div>
                     </div>
                 </div>
-
+                <div data-aos="zoom-out-down">
+                    <div className="flex justify-center">
+                        <img src={logo} className="w-[500px]" alt="" />
+                    </div>
+                </div>
             </div>
         </div>
     );

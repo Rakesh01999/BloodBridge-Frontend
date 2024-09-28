@@ -33,8 +33,8 @@ const Donar = () => {
     axiosSecure.post('/information', Information)
       .then(res => {
         Swal.fire({
-          title: "Accepted!",
-          text: "Your file has been Accepted.",
+          title: "Donation Requested!",
+          text: "Waiting for Admin Approval.",
           icon: "success"
         });
 

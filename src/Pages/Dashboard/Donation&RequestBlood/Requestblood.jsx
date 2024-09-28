@@ -5,12 +5,13 @@ import "react-datepicker/dist/react-datepicker.css";
 import React, { useContext, useState } from "react";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../../providers/AuthProvider";
+
 const Requestblood = () => {
-    //   const axiosSecure = useAxiosPublic();
     const axiosPublic = useAxiosPublic();
     const { user } = useContext(AuthContext);
     const [startDate, setStartDate] = useState(new Date());
-    const [id, setId] = useState(null)
+    const [id, setId] = useState(null);
+
     const {
         data: blood = [],
         isLoading,
@@ -22,10 +23,10 @@ const Requestblood = () => {
             return res.data;
         },
     });
+
     if (isLoading) {
         return <div>Loading.....</div>;
     }
-
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -37,10 +38,11 @@ const Requestblood = () => {
         let bloodgroup = form.blood.value;
         let status = "Acceptor_pending";
         let Acc_quantity = form.quantity.value;
-        document.getElementById(id).close()
+        let age = form.age.value;
+        let Disease = form.disease.value;
+        document.getElementById(id).close();
 
-        let amount = blood?.filter((item) => item.bloodGroup === bloodgroup)
-
+        let amount = blood?.filter((item) => item.bloodGroup === bloodgroup);
 
         if (amount[0].bloodQuantity < Acc_quantity) {
             Swal.fire({
@@ -48,36 +50,27 @@ const Requestblood = () => {
                 text: `We have not ${Acc_quantity} ml blood`,
                 icon: "error",
             });
-            return
+            return;
         }
 
         const Information = {
-            email, name, Phone_number, date, bloodgroup, status, Acc_quantity
-        }
+            email, name, Phone_number, date, bloodgroup, status, Acc_quantity, age, Disease,
+        };
 
         axiosPublic
             .post("/information", Information)
             .then((res) => {
-                // axiosSecure.patch("/bloodGroups1", Information).then(() => {
-                // axiosPublic.patch("/bloodGroups1", Information).then(() => {
-                //     Swal.fire({
-                //         title: "Accepted!",
-                //         text: "Your Request has been Accepted.",
-                //         icon: "success",
-                //     });
-                //     refetch()
-                // });
                 Swal.fire({
-                    title: "Accepted!",
+                    title: "Requested!",
                     text: "Your Request has been Recorded.",
                     icon: "success",
                 });
+                refetch();
             })
             .catch((error) => {
                 console.log(error.message);
             });
-        // form.reset();
-    }
+    };
 
     return (
         <div>
@@ -100,79 +93,88 @@ const Requestblood = () => {
                                     <td>{item.bloodGroup}</td>
                                     <td>{item.bloodQuantity}</td>
                                     <td>
-                                        {/* <button
-                                            className="btn btn-primary"
-                                            onClick={() => {
-                                                document.getElementById(item._id).showModal()
-                                                setId(item._id)
-                                            }
-                                            }
-                                        >
-                                            Request
-                                        </button> */}
-
-                                        {/* <div className="flex justify-center"> */}
                                         <div className="">
                                             <input
                                                 type="submit"
-                                                className="lg:mt-4 md:mt-4 mt-2 btn btn-primary bg-red-500 hover:rounded-full text-white w-24 lg:w-[200px] "
+                                                className="lg:mt-4 md:mt-4 mt-2 btn btn-primary bg-red-500 hover:rounded-full text-white w-24 lg:w-[200px]"
                                                 value="Request"
                                                 onClick={() => {
-                                                    document.getElementById(item._id).showModal()
-                                                    setId(item._id)
-                                                }
-                                                }
+                                                    document.getElementById(item._id).showModal();
+                                                    setId(item._id);
+                                                }}
                                             />
                                         </div>
 
                                         <section>
-                                            <dialog
-                                                id={item._id}
-                                                className="modal modal-middle sm:modal-middle"
-                                            >
-                                                <div className="modal-box">
-                                                    <h3 className="font-bold text-lg text-center">Acceptor Information</h3>
+                                            <dialog id={item._id} className="modal modal-middle sm:modal-middle">
+                                                <div className="modal-box bg-red-300">
+                                                    <h3 className="font-bold text-red-600 text-xl md:text-2xl text-center">
+                                                        Acceptor Information
+                                                    </h3>
                                                     <form onSubmit={handleSubmit} className="card-body">
                                                         <div className="flex space-x-3 ml-[-20px]">
                                                             <div className="">
                                                                 <label className="label">
-                                                                    <span className="label-text text-black ">
-                                                                        Name
-                                                                    </span>
+                                                                    <span className="label-text text-black font-bold">Name</span>
                                                                 </label>
                                                                 <input
                                                                     type="text"
-                                                                    placeholder="nafis ahamed"
+                                                                    placeholder="Name"
                                                                     className="input input-bordered"
                                                                     defaultValue={user?.displayName}
                                                                     name="name"
                                                                     required
-                                                                    readOnly="true"
+                                                                    readOnly
                                                                 />
                                                             </div>
                                                             <div className="">
                                                                 <label className="label">
-                                                                    <span className="label-text text-black ">
-                                                                        Email
-                                                                    </span>
+                                                                    <span className="label-text text-black font-bold">Email</span>
                                                                 </label>
                                                                 <input
                                                                     type="email"
-                                                                    placeholder="nafis@gmail.com"
+                                                                    placeholder="Email"
                                                                     className="input input-bordered"
                                                                     defaultValue={user?.email}
                                                                     name="email"
                                                                     required
-                                                                    readOnly="true"
+                                                                    readOnly
                                                                 />
                                                             </div>
                                                         </div>
+
+                                                        {/* New Age and Disease Fields */}
                                                         <div className="flex space-x-3 ml-[-20px]">
                                                             <div className="">
                                                                 <label className="label">
-                                                                    <span className="label-text text-black ">
-                                                                        Group
-                                                                    </span>
+                                                                    <span className="label-text text-black font-bold">Age</span>
+                                                                </label>
+                                                                <input
+                                                                    type="number"
+                                                                    placeholder="Age"
+                                                                    className="input input-bordered"
+                                                                    name="age"
+                                                                    required
+                                                                />
+                                                            </div>
+                                                            <div className="">
+                                                                <label className="label">
+                                                                    <span className="label-text text-black font-bold">Disease</span>
+                                                                </label>
+                                                                <input
+                                                                    type="text"
+                                                                    placeholder="Disease (if any)"
+                                                                    className="input input-bordered"
+                                                                    name="disease"
+                                                                    required
+                                                                />
+                                                            </div>
+                                                        </div>
+
+                                                        <div className="flex space-x-3 ml-[-20px]">
+                                                            <div className="">
+                                                                <label className="label">
+                                                                    <span className="label-text text-black font-bold">Group</span>
                                                                 </label>
                                                                 <input
                                                                     type="text"
@@ -181,14 +183,12 @@ const Requestblood = () => {
                                                                     defaultValue={item.bloodGroup}
                                                                     name="blood"
                                                                     required
-                                                                    readOnly="true"
+                                                                    readOnly
                                                                 />
                                                             </div>
                                                             <div className="">
                                                                 <label className="label">
-                                                                    <span className="label-text text-black ">
-                                                                        Qunatity
-                                                                    </span>
+                                                                    <span className="label-text text-black font-bold">Quantity</span>
                                                                 </label>
                                                                 <input
                                                                     type="number"
@@ -199,12 +199,11 @@ const Requestblood = () => {
                                                                 />
                                                             </div>
                                                         </div>
+
                                                         <div className="flex space-x-3 ml-[-20px]">
                                                             <div className="">
                                                                 <label className="label">
-                                                                    <span className="label-text text-black ">
-                                                                        Phone Number
-                                                                    </span>
+                                                                    <span className="label-text text-black font-bold">Phone Number</span>
                                                                 </label>
                                                                 <input
                                                                     type="text"
@@ -216,13 +215,11 @@ const Requestblood = () => {
                                                             </div>
                                                             <div className="">
                                                                 <label className="label">
-                                                                    <span className="label-text text-black font-bold">
-                                                                        Date
-                                                                    </span>
+                                                                    <span className="label-text text-black font-bold">Date</span>
                                                                 </label>
                                                                 <DatePicker
                                                                     name="date"
-                                                                    className="input input-bordered "
+                                                                    className="input input-bordered"
                                                                     selected={startDate}
                                                                     onChange={(date) => setStartDate(date)}
                                                                 />
@@ -232,15 +229,20 @@ const Requestblood = () => {
                                                         <div className="flex justify-center">
                                                             <input
                                                                 type="submit"
-                                                                className="lg:mt-4 md:mt-4 mt-2 btn btn-primary w-24 lg:w-[200px] "
+                                                                // className="lg:mt-4 md:mt-4 mt-2 btn btn-primary md:w-full w-24 bg-red-500 hover:rounded-full text-white lg:w-[200px]"
+                                                                className="lg:mt-4 md:mt-4 mt-2 btn btn-primary md:w-[150px] w-24 bg-red-500 hover:rounded-full text-white lg:w-full"
                                                                 value="Submit"
                                                             />
                                                         </div>
                                                     </form>
-                                                    <div className="modal-action">
+                                                    {/* <div className="modal-action">
                                                         <form method="dialog">
-                                                            {/* if there is a button in form, it will close the modal */}
                                                             <button className="btn">Close</button>
+                                                        </form>
+                                                    </div> */}
+                                                    <div className="modal-action flex justify-center">
+                                                        <form method="dialog">
+                                                            <button className="btn hover:bg-red-500 hover:text-white hover:rounded-full">Close</button>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -253,7 +255,7 @@ const Requestblood = () => {
                     })}
                 </table>
             </div>
-        </div>
+        </div >
     );
 };
 

@@ -3,6 +3,8 @@ import useAxiosPublic from '../../../hooks/useAxiosPublic';
 import { useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
 import { FaTrashAlt, FaUsers } from 'react-icons/fa';
+import { MdOutlineAdminPanelSettings } from "react-icons/md";
+
 
 const ManageUsers = () => {
     const axiosPublic = useAxiosPublic();
@@ -59,12 +61,12 @@ const ManageUsers = () => {
             })
     }
 
-    console.log(users);
+    // console.log(users);
     return (
         <div>
             <h3 className='text-center font-bold text-3xl mt-24'>Users can be managed here</h3>
             <div className="flex justify-evenly my-4">
-                <h2 className="text-3xl ">All Users</h2>
+                <h2 className="text-3xl">All Users</h2>
                 <h2 className="text-3xl ">Total Users: {users.length}</h2>
             </div>
 
@@ -72,7 +74,7 @@ const ManageUsers = () => {
             <div className="overflow-x-auto">
                 <table className="table w-full">
                     {/* head */}
-                    <thead>
+                    <thead className='bg-red-500 text-white'>
                         <tr>
                             <th></th>
                             <th>Name</th>
@@ -90,8 +92,14 @@ const ManageUsers = () => {
                                         <td>{user.name}</td>
                                         <td>{user.email}</td>
                                         <td>
-                                            {user.role === 'admin' ? 'Admin' : <button onClick={() => handleMakeAdmin(user)} className="btn bg-yellow-500 btn-lg ">
-                                                <FaUsers className="text-white text-2xl " />
+                                            {user.role === 'admin' ? 'Admin' : <button onClick={() => handleMakeAdmin(user)} className="btn bg-yellow-500 btn-lg h-[10px]">
+                                                <div className='flex items-center gap-1'>
+                                                    <span className='text-2xl'>
+                                                        {/* <FaUsers className="text-white " /> */}
+                                                        <MdOutlineAdminPanelSettings className="text-white " />
+                                                    </span>
+                                                    Make Admin
+                                                </div>
                                             </button>}
                                         </td>
                                         <td>

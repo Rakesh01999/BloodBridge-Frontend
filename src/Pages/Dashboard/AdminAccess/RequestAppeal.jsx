@@ -102,10 +102,10 @@ const RequestAppeal = () => {
 
     return (
         <div>
-            <h3 className='text-center font-bold text-3xl mt-24'>Welcome Blood Request Appeal</h3>
+            <h3 className='text-center font-bold text-3xl text-red-500 mt-24'>Welcome Blood Request Appeal</h3>
             <div className="overflow-x-auto my-8">
                 <table className="table w-full">
-                    <thead>
+                    <thead className='bg-red-500 text-white lg:text-lg'>
                         <tr>
                             <th>#</th>
                             <th>Name</th>
@@ -129,7 +129,8 @@ const RequestAppeal = () => {
                                     <td>{user.Disease}</td>
                                     <td>{user.bloodgroup}</td>
                                     <td>{user.Acc_quantity}</td>
-                                    <td>{user.status}</td>
+                                    {/* <td>{user.status}</td> */}
+                                    <td>pending</td>
                                     <td>
                                         {user.status === 'Acceptor_pending' && (
                                             <div className="flex space-x-2">

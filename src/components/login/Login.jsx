@@ -58,14 +58,16 @@ const Login = () => {
     };
 
     return (
-        <div className="hero min-h-screen bg-base-200 bg-[url('https://i.postimg.cc/Y075n05X/1000-F-668433624-HGKul-Uw-Qjae-LV8-Xay-QYy6-F3-RCVQff-TGv.jpg')] animate__animated animate__slideInLeft animate__delay-1s">
+        <div className="hero min-h-screen bg-base-200 bg-[url('https://i.postimg.cc/5yqJ2dYj/banner-with-red-blood-cellis-vector-41517953.jpg')] animate__animated animate__slideInLeft animate__delay-1s">
+        {/* <div className="hero min-h-screen bg-base-200 animate__animated animate__slideInLeft animate__delay-1s "> */}
             <Helmet>
                 <title>Login</title>
             </Helmet>
 
-            <div className="hero-content flex-col">
+
+            <div className="hero-content flex-col mt-14">
                 <div className="text-center">
-                    <h1 className="text-3xl md:text-5xl font-bold text-black my-3 animate__animated animate__fadeInDown">
+                    <h1 className="text-3xl md:text-5xl font-bold text-red-400 my-3 animate__animated animate__fadeInDown">
                         Login now!
                     </h1>
 
@@ -108,14 +110,14 @@ const Login = () => {
                                 </label>
                             </div>
 
-                            <button type="submit" className="btn bg-orange-400 hover:bg-orange-500 w-full">
+                            <button type="submit" className="btn bg-red-400 hover:bg-orange-500 w-full">
                                 Login
                             </button>
                         </form>
 
                         <div className="divider">OR</div>
 
-                        <button onClick={handleGoogleSignIn} className="btn btn-outline w-full border-orange-500 text-orange-500 hover:border-orange-600 hover:text-orange-600 flex items-center justify-center">
+                        <button onClick={handleGoogleSignIn} className="btn btn-outline w-full border-red-500 text-red-500 hover:border-orange-600 hover:text-white hover:bg-red-300 flex items-center justify-center">
                             <FcGoogle className="mr-2" /> Continue with Google
                         </button>
 
