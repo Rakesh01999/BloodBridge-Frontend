@@ -2,10 +2,15 @@ import React from 'react';
 import Banner from '../Banner/Banner';
 import CardContainer from '../CardContainer/CardContainer';
 import Faq from '../Faq/Faq';
+import { Helmet } from 'react-helmet-async';
 
 const Home = () => {
     return (
         <div>
+            <Helmet>
+                <title>Blood Bridge | Home</title>
+            </Helmet>
+
             <h2 className=''>Home</h2>
 
             {/* ------Banner------ */}

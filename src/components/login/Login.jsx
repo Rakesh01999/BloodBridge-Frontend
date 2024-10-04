@@ -110,7 +110,7 @@ const Login = () => {
                                 </label>
                             </div>
 
-                            <button type="submit" className="btn bg-red-400 hover:bg-orange-500 w-full">
+                            <button type="submit" className="btn bg-red-400 hover:bg-red-500 w-full text-white">
                                 Login
                             </button>
                         </form>
@@ -118,17 +118,17 @@ const Login = () => {
                         <div className="divider">OR</div>
 
                         <button onClick={handleGoogleSignIn} className="btn btn-outline w-full border-red-500 text-red-500 hover:border-orange-600 hover:text-white hover:bg-red-300 flex items-center justify-center">
-                            <FcGoogle className="mr-2" /> Continue with Google
+                            <FcGoogle className="mr-2 md:text-xl" /> Continue with Google
                         </button>
 
                         <p className="text-center mt-4">
                             New to this site?{' '}
-                            <Link to="/register" className="text-orange-600 font-bold">Register</Link>
+                            <Link to="/register" className="text-red-600 font-bold">Register</Link>
                         </p>
 
                         <p className="text-center">
                             Go back to{' '}
-                            <Link to="/" className="text-orange-500 font-bold">Home</Link>
+                            <Link to="/" className="text-red-500 font-bold">Home</Link>
                         </p>
                     </div>
                 </div>

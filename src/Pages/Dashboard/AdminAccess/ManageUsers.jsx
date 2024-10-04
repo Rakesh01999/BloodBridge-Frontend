@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
 import { FaTrashAlt, FaUsers } from 'react-icons/fa';
 import { MdOutlineAdminPanelSettings } from "react-icons/md";
+import { Helmet } from 'react-helmet-async';
 
 
 const ManageUsers = () => {
@@ -64,6 +65,9 @@ const ManageUsers = () => {
     // console.log(users);
     return (
         <div>
+            <Helmet>
+                <title>Blood Bridge | Manage Users</title>
+            </Helmet>
             <h3 className='text-center font-bold text-3xl mt-24'>Users can be managed here</h3>
             <div className="flex justify-evenly my-4">
                 <h2 className="text-3xl">All Users</h2>

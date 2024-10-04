@@ -3,6 +3,7 @@ import useAxiosPublic from '../../../hooks/useAxiosPublic';
 import { useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
 import { FaCheck, FaTimes } from 'react-icons/fa';
+import { Helmet } from 'react-helmet-async';
 
 const DonationAppeal = () => {
     const axiosPublic = useAxiosPublic();
@@ -97,6 +98,9 @@ const DonationAppeal = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>Blood Bridge | Donation Appeal</title>
+            </Helmet>
             <h3 className='text-center font-bold text-3xl text-red-500 mt-24'>Manage Donation Appeals</h3>
 
             <div className="overflow-x-auto my-8">

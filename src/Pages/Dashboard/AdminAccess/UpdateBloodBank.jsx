@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import useAxiosPublic from '../../../hooks/useAxiosPublic';
 import { useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet-async';
 
 const UpdateBloodBank = () => {
     const axiosPublic = useAxiosPublic();
@@ -21,53 +22,25 @@ const UpdateBloodBank = () => {
         return <div>Loading.....</div>;
     }
 
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-        
-    //     if (!selectedBloodGroup || !quantity) {
-    //         Swal.fire({
-    //             title: 'Error!',
-    //             text: 'Please select a blood group and enter a valid quantity.',
-    //             icon: 'error',
-    //         });
-    //         return;
-    //     }
-
-    //     // Create update object
-    //     const updateData = {
-    //         bloodgroup: selectedBloodGroup,
-    //         Acc_quantity: Number(quantity), // Ensure it's a number
-    //     };
-
-    //     axiosPublic
-    //         .patch('/bloodGroups', updateData)
-    //         .then(() => {
-    //             Swal.fire({
-    //                 title: 'Updated!',
-    //                 text: 'Blood quantity has been updated.',
-    //                 icon: 'success',
-    //             });
-    //             refetch();
-    //         })
-    //         .catch((error) => {
-    //             console.log(error.message);
-    //         });
-
-    //     // Close the modal
-    //     document.getElementById(id).close();
-    //     // Reset states after submit
-    //     setSelectedBloodGroup('');
-    //     setQuantity('');
-    // };
-
     const handleSubmit = (e) => {
         e.preventDefault();
         const bloodgroup = selectedBloodGroup || e.target.blood.value;
         const updatedQuantity = parseInt(quantity) || parseInt(e.target.quantity.value); // Ensure it's an integer
+
+        // Validate that the quantity is not less than 1
+        if (updatedQuantity < 1) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Quantity cannot be less than 1.',
+                icon: 'error',
+            });
+            return;
+        }
+
         document.getElementById(id).close();
-    
+
         const updateData = { bloodgroup, quantity: updatedQuantity }; // Updated key to match your backend
-    
+
         axiosPublic
             .patch('/bloodGroups', updateData)  // Make sure this matches your backend route
             .then(() => {
@@ -83,9 +56,11 @@ const UpdateBloodBank = () => {
             });
     };
 
-    
     return (
         <div>
+            <Helmet>
+                <title>Blood Bridge | Update Blood Bank</title>
+            </Helmet>
             <h3 className='text-center font-bold lg:text-3xl md:text-2xl text-red-500 mt-24 mb-4'>Update Blood Bank</h3>
             <div>
                 <div className="overflow-x-auto">
@@ -146,6 +121,7 @@ const UpdateBloodBank = () => {
                                                                 </label>
                                                                 <input
                                                                     type="number"
+                                                                    min="1" // Ensure minimum value is 1
                                                                     placeholder="Enter Quantity"
                                                                     className="input input-bordered"
                                                                     value={quantity}
@@ -158,7 +134,6 @@ const UpdateBloodBank = () => {
                                                         <div className="flex justify-center">
                                                             <input
                                                                 type="submit"
-                                                                // className="lg:mt-4 md:mt-4 mt-2 btn btn-primary w-24 lg:w-[200px]"
                                                                 className='lg:mt-4 md:mt-4 mt-2 btn btn-primary bg-red-500 hover:rounded-full text-white w-24 lg:w-[200px]'
                                                                 value="Submit"
                                                             />

@@ -3,6 +3,7 @@ import useAxiosPublic from '../../../hooks/useAxiosPublic';
 import { useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
 import { FaCheck, FaTimes } from 'react-icons/fa';
+import { Helmet } from 'react-helmet-async';
 
 const RequestAppeal = () => {
     const axiosPublic = useAxiosPublic();
@@ -102,7 +103,10 @@ const RequestAppeal = () => {
 
     return (
         <div>
-            <h3 className='text-center font-bold text-3xl text-red-500 mt-24'>Welcome Blood Request Appeal</h3>
+            <Helmet>
+                <title>Blood Bridge | Request Appeal</title>
+            </Helmet>
+            <h3 className='text-center font-bold text-3xl text-red-500 mt-24'>Blood Request Appeal</h3>
             <div className="overflow-x-auto my-8">
                 <table className="table w-full">
                     <thead className='bg-red-500 text-white lg:text-lg'>
@@ -137,7 +141,7 @@ const RequestAppeal = () => {
                                                 <button onClick={() => handleApprove(user)} className="btn btn-success btn-sm">
                                                     <FaCheck /> Approve
                                                 </button>
-                                                <button onClick={() => handleReject(user)} className="btn btn-danger btn-sm">
+                                                <button onClick={() => handleReject(user)} className="btn btn-danger bg-red-400 btn-sm">
                                                     <FaTimes /> Reject
                                                 </button>
                                             </div>

@@ -6,6 +6,7 @@ import React, { useContext, useState } from "react";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../../providers/AuthProvider";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import { Helmet } from "react-helmet-async";
 
 const Donar = () => {
 
@@ -47,6 +48,9 @@ const Donar = () => {
   }
   return (
     <div className="hero min-h-screen bg-base-200  bg-[url('https://i.postimg.cc/PJ2g2SdJ/file1.png')]">
+      <Helmet>
+        <title>Blood Bridge | Blod Donation</title>
+      </Helmet>
 
       <form onSubmit={submitform} className="card-body">
         {/* 1st input */}
@@ -145,6 +149,7 @@ const Donar = () => {
               placeholder="qunatity"
               className="input lg:input-lg input-bordered lg:w-[500px] md:w-[250px] w-[150px]"
               name="quantity"
+              min="1"
               required
             />
           </div>

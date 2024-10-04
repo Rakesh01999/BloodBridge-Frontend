@@ -52,13 +52,13 @@ const NavBar = () => {
     // console.log("Is Admin:", isAdmin);
 
     const navOptions = <>
-        <li className='hover:text-yellow-300 hover:font-bold hover:text-[15px]'><Link to="/">Home</Link></li>
+        <li className='hover:text-red-300 hover:font-bold hover:text-[15px] text-xl'><Link to="/">Home</Link></li>
         {/* <li className='hover:text-yellow-300 hover:font-bold hover:text-[15px]'><Link to="/dashboard/userHome">Dashboard</Link></li> */}
         {
-            user && isAdmin && <li><Link className='hover:text-red-300 hover:font-bold hover:text-[15px]' to="/dashboard/adminHome">Dashboard</Link></li>
+            user && isAdmin && <li><Link className='hover:text-red-300 hover:font-bold hover:text-[15px] text-xl' to="/dashboard/adminHome">Dashboard</Link></li>
         }
         {
-            user && !isAdmin && <li><Link className='hover:text-red-300 hover:font-bold hover:text-[15px]' to="/dashboard/userHome">Dashboard</Link></li>
+            user && !isAdmin && <li><Link className='hover:text-red-300 hover:font-bold hover:text-[15px] text-xl' to="/dashboard/userHome">Dashboard</Link></li>
         }
 
 
@@ -127,10 +127,10 @@ const NavBar = () => {
                         ) : (
                             <div className="flex gap-2">
                                 <Link to="/login">
-                                    <button className="btn btn-info btn-sm md:h-14 md:w-28 ">Log in</button>
+                                    <button className="btn btn-info hover:bg-red-500 btn-sm text-white md:h-14 md:w-28 ">Log in</button>
                                 </Link>
                                 <Link to="/register">
-                                    <button className="btn bg-green-300 md:h-14 text-blue-700 btn-sm md:w-28">Register</button>
+                                    <button className="btn bg-red-500 md:h-14 hover:text-blue-700 text-white btn-sm md:w-28">Register</button>
                                 </Link>
                             </div>
                         )

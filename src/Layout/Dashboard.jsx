@@ -6,6 +6,8 @@ import NavBar from '../Pages/Shared/NavBar/NavBar';
 import { AuthContext } from '../providers/AuthProvider';
 import useAxiosPublic from '../hooks/useAxiosPublic';
 import { useQuery } from '@tanstack/react-query';
+import { Helmet } from 'react-helmet-async';
+import Footer from '../Pages/Shared/Footer/Footer';
 
 const Dashboard = () => {
 
@@ -49,6 +51,9 @@ const Dashboard = () => {
     return (
 
         <div>
+            <Helmet>
+                <title>Blood Bridge | Dashboard</title>
+            </Helmet>
             <div><NavBar></NavBar></div>
 
             {/* <h3 className='text-center font-bold text-3xl'> This Is Dashboard</h3> */}
@@ -94,6 +99,8 @@ const Dashboard = () => {
                     <Outlet></Outlet>
                 </div>
             </div>
+
+            <div><Footer></Footer></div>
         </div>
     );
 };

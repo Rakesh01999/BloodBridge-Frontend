@@ -5,6 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import React, { useContext, useState } from "react";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../../providers/AuthProvider";
+import { Helmet } from "react-helmet-async";
 
 const Requestblood = () => {
     const axiosPublic = useAxiosPublic();
@@ -74,6 +75,9 @@ const Requestblood = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>Blood Bridge | Request Blood</title>
+            </Helmet>
             <div className="overflow-x-auto mt-20">
                 <table className="table table-zebra">
                     {/* head */}
@@ -147,13 +151,14 @@ const Requestblood = () => {
                                                         <div className="flex space-x-3 ml-[-20px]">
                                                             <div className="">
                                                                 <label className="label">
-                                                                    <span className="label-text text-black font-bold">Age</span>
+                                                                    <span className="label-text text-black font-bold">Age ( not less than 6 )</span>
                                                                 </label>
                                                                 <input
                                                                     type="number"
                                                                     placeholder="Age"
                                                                     className="input input-bordered"
                                                                     name="age"
+                                                                    min="6"
                                                                     required
                                                                 />
                                                             </div>
@@ -195,6 +200,7 @@ const Requestblood = () => {
                                                                     placeholder="80ml"
                                                                     className="input input-bordered"
                                                                     name="quantity"
+                                                                    min="1"
                                                                     required
                                                                 />
                                                             </div>
