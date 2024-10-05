@@ -23,6 +23,7 @@ const Register = () => {
         const photo = e.target.photo.value;
         const email = e.target.email.value;
         const password = e.target.password.value;
+        const role = e.target.role.value; // Capture the selected role
 
         setRegisterError('');
         setSuccess('');
@@ -30,16 +31,13 @@ const Register = () => {
         if (password.length < 6) {
             setRegisterError('Password should be at least 6 characters or longer');
             return;
-        }
-        else if (!/[A-Z]/.test(password)) {
+        } else if (!/[A-Z]/.test(password)) {
             setRegisterError('Your password should have at least one upper case character.');
             return;
-        }
-        else if (!/[a-z]/.test(password)) {
+        } else if (!/[a-z]/.test(password)) {
             setRegisterError('Your password should have at least one lower case character.');
             return;
-        }
-        else if (!/[!@#$%^&*()_+=[\]{};':"\\|,.<>/?]+/.test(password)) {
+        } else if (!/[!@#$%^&*()_+=[\]{};':"\\|,.<>/?]+/.test(password)) {
             setRegisterError('Your password should have at least one special character.');
             return;
         }
@@ -54,7 +52,7 @@ const Register = () => {
                     photoURL: photo
                 })
                     .then(() => {
-                        const userInfo = { name: name, email: email };
+                        const userInfo = { name: name, email: email, role: role }; // Include role in user info
                         axiosPublic.post('/users', userInfo)
                             .then(res => {
                                 if (res.data.insertedId) {
@@ -112,6 +110,17 @@ const Register = () => {
                             <span className="label-text">Photo URL</span>
                         </label>
                         <input type="text" name="photo" placeholder="Enter photo URL" className="input input-bordered w-full" required />
+                    </div>
+
+                    <div className="form-control w-full mb-4">
+                        <label className="label">
+                            <span className="label-text">Role</span>
+                        </label>
+                        <select name="role" className="select select-bordered w-full" required>
+                            <option value="">Select Role</option>
+                            <option value="Donor">Donor</option>
+                            <option value="Patient">Patient</option>
+                        </select>
                     </div>
 
                     <div className="form-control w-full mb-6">
