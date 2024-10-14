@@ -38,13 +38,9 @@ Check out the live version of BloodBridge (BBMS):
 - Manage blood group stocks and approve or reject blood donation and request submissions.
 - Dashboard shows blood group stock levels, donor and patient counts, and the status of blood requests.
 
-### **Donor**
-- Register as a blood donor and submit blood donation requests.
+### **User (Donor & Patient)**
 - Check donation and request history with statuses (Pending, Approved, Rejected).
 - Submit and track donation requests.
-
-### **Patient**
-- Register as a patient and request blood.
 - View the status of blood requests (Pending, Approved, Rejected).
 - Track request history from the dashboard.
 
